@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""分析 Sokol 的 Windows x86、x64 头文件依赖，只更新原始文件清单。"""
+"""分析 Sokol 的 Windows x86、x64、ARM64 头文件依赖，只更新原始文件清单。"""
 
 import argparse
 import hashlib
@@ -10,7 +10,7 @@ import subprocess
 
 
 def main():
-    """合并两种架构、三种模式的依赖，保留包含路径中的大小写。"""
+    """合并三种架构、三种模式的依赖，保留包含路径中的大小写。"""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("sdk", type=Path, help="xwin splat directory")
     parser.add_argument("sokol", type=Path, help="Sokol src/sokol/c directory")
@@ -23,7 +23,7 @@ def main():
     if not sources:
         raise ValueError("no Sokol C sources")
     found = set()
-    for arch in ("x86", "x86_64"):
+    for arch in ("x86", "x86_64", "aarch64"):
         for mode in ("debug", "safe", "fast"):
             for source in sources:
                 command = [
@@ -50,7 +50,8 @@ def main():
         raise ValueError("no Microsoft SDK headers found")
     output = args.output or Path(__file__).resolve().with_name("headers.json")
     output.write_text(json.dumps({
-        "targets": ["x86-windows.win8-msvc", "x86_64-windows.win8-msvc"],
+        "targets": ["x86-windows.win8-msvc", "x86_64-windows.win8-msvc",
+                    "aarch64-windows.win8-msvc"],
         "headers": {name: hashlib.sha256((sdk / name).read_bytes()).hexdigest()
                     for name in sorted(found)},
     }, indent=2) + "\n", encoding="utf-8")

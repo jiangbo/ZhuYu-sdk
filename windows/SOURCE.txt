@@ -1,37 +1,46 @@
-Windows x86、x64 MSVC 构建材料
+Windows x86、x64、ARM64 MSVC 构建材料
 
 来源：Microsoft Windows SDK 10.0.26100，MSVC CRT 14.44.35220.0。
 原始材料由 xwin 0.10.0 从 Microsoft 下载并通过 splat 整理。
-当前范围为 x86-windows.win8-msvc、x86_64-windows.win8-msvc，
-使用 Sokol D3D11 和系统字体。不包含 ARM64、完整 Windows SDK、
-C++ 标准库或编译器。
+当前范围为 x86-windows.win8-msvc、x86_64-windows.win8-msvc、
+aarch64-windows.win8-msvc，使用 Sokol D3D11 和系统字体。
+win8 表示沿用项目的 API 编译下限，不表示存在 Windows 8 ARM64 桌面系统。
+不包含完整 Windows SDK、C++ 标准库或编译器。
 
-原始 SDK 使用 xwin 的 crt/、sdk/ 布局，架构目录名称为 x86、x86_64。
+原始 SDK 使用 xwin 的 crt/、sdk/ 布局，架构目录名称为 x86、x86_64、aarch64。
 crt/include、sdk/include/{ucrt,um,shared} 按 headers.json 选择原始头文件。
 扫描参考 Zig 0.17.0 和 Sokol-zig：
 cc3473c17bed471d608e221adf0fdcb5a61163e0。
-扫描两个架构的 Debug、Safe、Fast，合并直接和间接引用的微软头文件。
-两个架构共用同一组 182 个头文件，各自保存 17 个库。
+扫描三个架构的 Debug、Safe、Fast，合并直接和间接引用的微软头文件。
+三个架构共用同一组 183 个头文件。x86、x64 各保存 17 个库，
+ARM64 保存 18 个库，额外的 runtimeobject.lib 由 CRT 链接指令引用。
 复制时保留编译器看到的路径大小写，软链接转换为普通文件。
 
 libraries.json 固定所选库的原始 SHA256、处理方式和输出 SHA256。
 保留 libcmt、libvcruntime、libucrt、legacy_stdio_definitions、oldnames，
 以及引擎、Sokol、Zig 所需的系统导入库和 uuid 静态数据。
-每个架构处理六个普通 COFF 静态库：
+每个架构保留六个 COFF 静态库：
 x64 使用 llvm-objcopy --strip-debug 删除调试节。
 x86 保留节表和符号索引，清空 .debug$S、.debug$T 的内容与重定位，
 再由 llvm-objcopy 重新布局、llvm-ar --format=coff 重建静态库。
 这样避免 LLVM 19 直接删节后破坏 .sxdata 内的 SafeSEH 符号索引。
-所有对象保留原始顺序，新库使用固定的数字对象名称，处理结果可重复。
+x86 对象保留原始顺序，新库使用固定的数字对象名称，处理结果可重复。
 相关 LLVM 问题：https://github.com/llvm/llvm-project/pull/222929
 当前工具为 LLVM 19.0.1，来自 Android NDK r28c 的主机工具目录。
+ARM64 仅对 libucrt 使用 --strip-debug。其余五个静态库同时包含
+ARM64、ARM64EC 或 x64 对象，并带有 /<ECSYMBOLS>/ 独立符号索引。
+LLVM 19 剥离会丢失该索引，导致链接器选中错误架构的对象。因此这五个库
+原位清空 .debug$S、.debug$T 的数据、重定位及节头引用，不重建归档。
+成员大小、顺序、符号和所有索引保持不变；空洞由最终 SDK 压缩包压缩。
+这样既保留 ARM64EC 索引，也避免最终应用引用未分发的微软 CRT PDB。
 仅删除调试信息；保留链接符号、重定位、代码和数据。
 系统导入库含 short import 对象，本次 LLVM 不支持对此格式执行 objcopy，
 因此按原始字节保留，避免破坏导入信息。
 不收录运行库的 PDB；应用仍可以生成并使用自己的 Debug EXE 和 PDB。
-FILES.txt 记录各文件的原始路径及 copy、strip-debug、clear-debug 处理方式。
+FILES.txt 记录各文件的原始路径及 copy、strip-debug、clear-debug、
+clear-hybrid-debug 处理方式。
 
-普通提取需 Python 3.10 或以上、原始双架构 xwin SDK，
+普通提取需 Python 3.10 或以上、原始三架构 xwin SDK，
 以及同目录的 LLVM objcopy、ar 工具，
 不需要 Zig、Sokol 或 ZhuYu 源码。在 SDK 仓库根目录执行：
 python windows/extract.py /path/to/xwin-sdk --objcopy /path/to/llvm-objcopy
@@ -48,7 +57,7 @@ SDK 或库升级时，人工核对 libraries.json 的原始及剥离后 SHA256�
 库清单不应从已剥离库反向生成，原始输入须保留用于校验和追溯。
 
 获取原始材料可使用 xwin splat；必须保留下载时使用的版本和缓存。
-通过 --arch x86,x86_64 同时下载两个架构，共用头文件。
+通过 --arch x86,x86_64,aarch64 同时下载三个架构，共用头文件。
 工具及参数说明：https://github.com/Jake-Shadle/xwin
 本次下载缓存记录 Visual Studio 通道 17.14.42，CRT 头文件自报上述版本。
 清单中的内容哈希用于识别本次确切的原始文件，避免仅靠版本号判断。
@@ -64,6 +73,16 @@ x64 剥离后 Safe EXE 的 SHA256 与使用原始 SDK 构建的文件完全相�
 x86 已通过 Safe、Debug 构建，并检查最终程序的 SafeSEH 表。
 逐一核对六个 x86 库的 2474 个对象，确认非调试节内容、重定位、
 符号名称及其原始索引保持一致。
+
+ARM64 补充验证：
+Zig 0.17.0 在 Linux 上使用项目原有的 win8 API 编译下限。
+demo 通过 --fork 使用本地 ZhuYu，GNU、MSVC 均通过 Debug、Safe、Fast 构建，
+包含系统字体、音频和 MIDI。MSVC Debug 生成应用自身的 EXE 和 PDB，
+不再报告缺少微软运行库 PDB。
+清屏示例的 x86、x64、ARM64 GNU/MSVC 六个目标均通过 Fast 构建。
+逐字节核对五个 ARM64 混合静态库，确认调试节之外的所有字节保持一致，
+包括成员边界、符号、普通索引及 /<ECSYMBOLS>/ 索引。
+ARM64 已确认生成原生 ARM64 PE 文件，尚未在 Windows ARM64 实机运行。
 
 仓库发布流程打包 windows/，包含本说明、NOTICE 和 FILES。
 维护脚本及 JSON 清单不进入 Release 压缩包。

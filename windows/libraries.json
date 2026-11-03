@@ -1,4 +1,24 @@
 {
+  "crt/lib/aarch64/legacy_stdio_definitions.lib": {
+    "source_sha256": "1e6b183e8939c6e1c82e08ec4e29907eb85a314724827b51d980ddf7a7b9ed28",
+    "sha256": "329f9199b33a9b0481c6d8306b71e0b0ecb9c57a1fe8c3f45c7ac4dd37474963",
+    "action": "clear-hybrid"
+  },
+  "crt/lib/aarch64/libcmt.lib": {
+    "source_sha256": "12cfa5fce12fed27cba37bf1a1f9492666ced59e48d86f7c1fb925851b8cc481",
+    "sha256": "8ffa7e97895c299cf24b1b9450ff3125b94f18c60303c7332fc4bd69cb9620c8",
+    "action": "clear-hybrid"
+  },
+  "crt/lib/aarch64/libvcruntime.lib": {
+    "source_sha256": "f065dadfc2fc7c6b455911d4f2a27c052127634eebae78fa93d1255534fbd0dd",
+    "sha256": "3c07ac338462b033c46f9e56d1279ec9cf0ca81ba6e408664b7bc23f15f202b8",
+    "action": "clear-hybrid"
+  },
+  "crt/lib/aarch64/oldnames.lib": {
+    "source_sha256": "d7e945af69e3d7e9999a21cdb4f04c9dd516557867322a57eb8877248c23dcec",
+    "sha256": "828704cffaf10c6c406c8ce97eb2c285255d27880474d425717798e30ed56d3f",
+    "action": "clear-hybrid"
+  },
   "crt/lib/x86/legacy_stdio_definitions.lib": {
     "source_sha256": "3e240836c53a478ceea66c292739e814870d5f274626e4bf7952435badd99bae",
     "sha256": "ec69e040711fe5814ba911c8402eec5770c8becdb8ba521bcf29d7bfc0bcb069",
@@ -39,6 +59,11 @@
     "sha256": "14449d7a7834bedae4eb1538530582b46a850a28e690b0bbbda756f9ae9b18fb",
     "action": "strip"
   },
+  "sdk/lib/ucrt/aarch64/libucrt.lib": {
+    "source_sha256": "f60c89358c029b3b0cddbff15be0c6b1878e26a3917842e96c11314fb1e684d5",
+    "sha256": "3f540fcb67421e51fbd467a4380668b7ef09f946eb80eac4927ef296765d72d9",
+    "action": "strip"
+  },
   "sdk/lib/ucrt/x86/libucrt.lib": {
     "source_sha256": "20b6a9d5e1e2198c8a7868045fae496c6a1b6743f22d1486920335f7c90bc860",
     "sha256": "54838fc2a894cc362dd75f35cfbc3fe010cfa6f3285ed69f3860882685ad2a0e",
@@ -48,6 +73,71 @@
     "source_sha256": "1911eb278d4f18f92e5c2350206ee51bf0bfc056ac7f575a7d1e7bfa86023fb6",
     "sha256": "24eb5c45a05c0b4c4f8d5d5bc04f51a2c1d7c0abca1201307cbf927c61faec46",
     "action": "strip"
+  },
+  "sdk/lib/um/aarch64/advapi32.lib": {
+    "source_sha256": "d0209a071f9024bc0c183d98b2c0ffe61f72049c565ef014e99b97cc0f394414",
+    "sha256": "d0209a071f9024bc0c183d98b2c0ffe61f72049c565ef014e99b97cc0f394414",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/d3d11.lib": {
+    "source_sha256": "7c1f025020b8e90eb9db8ed758ba3e9fa00b6def6a38b130e80b64562dcaa85b",
+    "sha256": "7c1f025020b8e90eb9db8ed758ba3e9fa00b6def6a38b130e80b64562dcaa85b",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/dwrite.lib": {
+    "source_sha256": "95e866a292a1b65ce01cc77509438d122078c47a3ab3d21bd941da05cff4d628",
+    "sha256": "95e866a292a1b65ce01cc77509438d122078c47a3ab3d21bd941da05cff4d628",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/dxgi.lib": {
+    "source_sha256": "a9851c5b2db2f624476d5777e033fa78fb65d548a5d13e7b99fa49838ced9836",
+    "sha256": "a9851c5b2db2f624476d5777e033fa78fb65d548a5d13e7b99fa49838ced9836",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/gdi32.lib": {
+    "source_sha256": "d0032c12bbc34755e9a6d3bfcf5dbf83fe8ae681c228f7d7f78d275fe788c6e3",
+    "sha256": "d0032c12bbc34755e9a6d3bfcf5dbf83fe8ae681c228f7d7f78d275fe788c6e3",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/imm32.lib": {
+    "source_sha256": "600b6de68849876373204bbf2774be5b5b30a508705d300e50cf55327658f908",
+    "sha256": "600b6de68849876373204bbf2774be5b5b30a508705d300e50cf55327658f908",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/kernel32.lib": {
+    "source_sha256": "5a4a1e63ad1692f0767dc911d608e981e6e7b24b3ec2684429a61add648327f4",
+    "sha256": "5a4a1e63ad1692f0767dc911d608e981e6e7b24b3ec2684429a61add648327f4",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/ntdll.lib": {
+    "source_sha256": "ff81f5f93724caa2fe03eed9f9b266a13e13a674ac50084a252a6315c8ae39ae",
+    "sha256": "ff81f5f93724caa2fe03eed9f9b266a13e13a674ac50084a252a6315c8ae39ae",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/ole32.lib": {
+    "source_sha256": "375b0bfaafbec4928f8b3b25631eecc2e69b44989e6febf099e4f0a04cee878e",
+    "sha256": "375b0bfaafbec4928f8b3b25631eecc2e69b44989e6febf099e4f0a04cee878e",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/runtimeobject.lib": {
+    "source_sha256": "77c8bdaa5ea9e08e5ea4631ccefec562963a2248cfc8374881042cee199fe307",
+    "sha256": "77c8bdaa5ea9e08e5ea4631ccefec562963a2248cfc8374881042cee199fe307",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/shell32.lib": {
+    "source_sha256": "8a65ad8c48662036b2880b462ed0d21ce3561b3ac9b2e038e6e10bf47cbb04c4",
+    "sha256": "8a65ad8c48662036b2880b462ed0d21ce3561b3ac9b2e038e6e10bf47cbb04c4",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/user32.lib": {
+    "source_sha256": "23567ebb20ad35680a166e335d184ba441043fcb40120f456bfdd58debed90d5",
+    "sha256": "23567ebb20ad35680a166e335d184ba441043fcb40120f456bfdd58debed90d5",
+    "action": "copy"
+  },
+  "sdk/lib/um/aarch64/uuid.lib": {
+    "source_sha256": "4495bacd5c24c401ef8f45a931f6701efca54042c30da1fffc2eb2760827c465",
+    "sha256": "40d4e151fc4c5af43d05b2e60a4cbf1410e43a8bd294011ae4126055386ad1a6",
+    "action": "clear-hybrid"
   },
   "sdk/lib/um/x86/advapi32.lib": {
     "source_sha256": "aae02682b7fb18b66b4bb9f7f44e94ba1c05280d9ccff0aefafa9a6a7b52eac2",

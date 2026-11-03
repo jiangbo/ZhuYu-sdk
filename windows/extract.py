@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""按清单提取 Windows x86、x64 SDK，并用 LLVM 移除静态库调试信息。"""
+"""按清单提取 Windows x86、x64、ARM64 SDK，并移除静态库调试信息。"""
 
 import argparse
 import hashlib
@@ -8,6 +8,61 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+
+
+def clear_hybrid(source, output):
+    """原位清空混合库的调试节，保留成员位置和 ARM64EC 符号索引。"""
+    data = bytearray(source.read_bytes())
+    if data[:8] != b"!<arch>\n":
+        raise ValueError("invalid COFF archive")
+    pos = 8
+    while pos < len(data):
+        header = data[pos:pos + 60]
+        if len(header) != 60 or header[58:60] != b"`\n":
+            raise ValueError("invalid archive member")
+        size = int(header[48:58])
+        start = pos + 60
+        end = start + size
+        if end > len(data):
+            raise ValueError("invalid archive member size")
+        name = header[:16].strip()
+        # 索引和长名称表原样保留，只处理普通对象成员。
+        if name not in (b"/", b"//", b"/<ECSYMBOLS>/"):
+            obj = data[start:end]
+            if (obj[:4] == b"\x00\x00\xff\xff"
+                    and int.from_bytes(obj[4:6], "little") >= 2):
+                offset = start + 56
+                count = int.from_bytes(obj[44:48], "little")
+            elif obj[:2] in (b"\x64\xaa", b"\x41\xa6", b"\x64\x86"):
+                offset = start + 20 + int.from_bytes(obj[16:18], "little")
+                count = int.from_bytes(obj[2:4], "little")
+            else:
+                offset, count = start, 0
+            for part in range(count):
+                section = offset + part * 40
+                if section + 40 > end:
+                    raise ValueError("invalid COFF section header")
+                header = data[section:section + 40]
+                if header[:8].rstrip(b"\x00") not in (b".debug$S", b".debug$T"):
+                    continue
+                flags = int.from_bytes(header[36:40], "little")
+                length = int.from_bytes(header[16:20], "little")
+                pointer = int.from_bytes(header[20:24], "little")
+                reloc = int.from_bytes(header[24:28], "little")
+                number = int.from_bytes(header[32:34], "little")
+                if flags & 0x01000000:
+                    number = int.from_bytes(obj[reloc:reloc + 4], "little")
+                # 清空无用字节，归档压缩后不再为调试数据占空间。
+                for point, length in ((pointer, length), (reloc, number * 10)):
+                    if length:
+                        if point + length > size:
+                            raise ValueError("invalid debug section data")
+                        data[start + point:start + point + length] = bytes(length)
+                data[section + 8:section + 36] = bytes(28)
+                data[section + 36:section + 40] = (
+                    flags & ~0x01000000).to_bytes(4, "little")
+        pos = end + (size % 2)
+    output.write_bytes(data)
 
 
 def clear_debug(source, output, objcopy):
@@ -89,7 +144,9 @@ def main():
             dest = stage / name
             dest.parent.mkdir(parents=True, exist_ok=True)
             if library and library["action"] != "copy":
-                if library["action"] == "clear":
+                if library["action"] == "clear-hybrid":
+                    clear_hybrid(sdk / name, dest)
+                elif library["action"] == "clear":
                     clear_debug(sdk / name, dest, args.objcopy)
                 elif library["action"] == "strip":
                     subprocess.run([args.objcopy, "--strip-debug",
