@@ -1,0 +1,37 @@
+iOS 构建材料
+
+基线 SDK：iPhoneOS17.0.sdk 和 iPhoneSimulator17.0.sdk。
+SDK 版本为 17.0，最低运行版本为 iOS 15.0。
+初始头文件清单参考 Zig 0.17.0 和 Sokol-zig：
+3990b6629704f988041ac7e76ed010348eabd098。
+
+device/ 保存 ARM64 真机材料。
+simulator/ 保存 ARM64、x86_64 模拟器材料。
+两套材料分别提取，不混用头文件、平台标记和链接描述。
+头文件分别按 device/headers.json 和 simulator/headers.json 提取。
+保留上游内容、版权声明和 API 可用性标记，符号链接入口复制为普通文件。
+libSystem.tbd 保留完整公开接口，模拟器的宿主桥接重导出展开到 libSystem。
+SDKSettings.json 保留平台元数据，模拟器展示名调整为纯版本号。
+FILES.txt 记录 SDK 内的来源路径和输出位置。
+不包含系统动态库实现、模拟器运行环境、签名证书和描述文件。
+
+精简 Framework TBD 和 libobjc.tbd 位于 sdk/defs/ios/，随代码维护。
+UIKit 的内部重导出展开到公开框架，不直接链接 UIKitCore。
+
+普通提取需要 Python 3.10 或以上、原始 SDK 和 PyYAML，不需要 Zig 或 Sokol。
+PyYAML 只用于展开模拟器 libSystem 的完整宿主桥接接口。
+在 SDK 仓库根目录执行：
+python ios/extract.py /path/to/iPhoneOS17.0.sdk /path/to/iPhoneSimulator17.0.sdk
+可通过 --output 指定 iOS 材料根目录，其中分别写入 device/ 和 simulator/。
+默认更新 ios/；清单固定 SDK 名称、版本、头文件路径和内容 SHA256。
+完整 libSystem 和 SDK 元数据保留现有处理，不按引擎调用裁剪。
+FILES.txt 只记录 SDK 自身文件，不再包含精简 Framework TBD 的生成记录。
+
+需要更新头文件清单时，单独使用 Python 和 Zig 分析 Sokol：
+python ios/scan.py /path/to/iPhoneOS17.0.sdk /path/to/iPhoneSimulator17.0.sdk \
+    /path/to/sokol/src/sokol/c
+可通过 --zig 指定 Zig，通过 --output 将候选清单写到其他根目录。
+扫描各架构的 Debug 和 ReleaseFast，只更新清单，不提取材料。
+
+精简 TBD 的生成工具位于 ZhuYu 仓库的 sdk/defs/apple.py。
+它根据引擎实际调用独立运行，不修改 SDK 材料。

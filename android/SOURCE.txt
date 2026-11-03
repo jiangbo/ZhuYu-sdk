@@ -1,0 +1,31 @@
+Android 构建材料
+
+基线 NDK：r28c，版本 28.2.13676358。
+保留 API 26–35 的链接材料，最低运行版本为 Android 8.0（API 26）。
+初始头文件清单参考 Zig 0.17.0 和 Sokol-zig：
+3990b6629704f988041ac7e76ed010348eabd098。
+
+支持 arm64-v8a、armeabi-v7a、x86 和 x86_64。
+usr/include/ 按 headers.json 收录四个架构的头文件，保持原始内容。
+headers.json 固定 NDK 版本、头文件路径和每个文件的 SHA256。
+usr/lib/ 按架构和 API 保存 NDK 原始系统占位库及 CRT 目标文件。
+保留原始 SONAME、导出符号和符号版本，不包含系统库实现。
+source.properties 记录 NDK 版本，NOTICE 保留上游许可说明。
+FILES.txt 记录提取材料在 NDK 中的来源路径。
+不包含 C++ 标准库、调试器、模拟器和设备运行环境。
+
+普通提取只需 Python 3.10 或以上及本地 NDK，不依赖 Zig、Sokol 或 ZhuYu。
+在 SDK 仓库根目录执行：
+python android/extract.py /path/to/android-ndk
+python android/extract.py /path/to/android-ndk --output /path/to/android-sdk
+
+默认更新本目录；--output 指定 Android 材料根目录。
+NDK 版本与头文件哈希均需匹配清单，校验成功后写入目标目录。
+目标存在清单之外的旧文件时停止，建议用 --output 提取到空目录后核对。
+
+需要扩展头文件范围或升级 NDK 时，单独分析 Sokol 以更新清单：
+python android/scan.py /path/to/android-ndk /path/to/sokol/src/sokol/c
+可通过 --zig 指定 Zig，通过 --output 将候选清单写到其他文件。
+扫描覆盖四个 ABI、最低和最高 API 的 Debug、ReleaseFast 和 Safe FORTIFY。
+scan.py 只更新头文件清单，不提取 SDK、不生成链接符号。
+更新 NDK 后需核对本说明中的版本和 API 范围，再运行 extract.py。

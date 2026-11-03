@@ -1,0 +1,42 @@
+[
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/alsa-lib-dev-1.2.14-r0.apk",
+    "sha256": "f54090320ee397c3ce8172faf53f8d7883d37dea89103aedc6dda7637bbe316b"
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/libx11-dev-1.8.11-r0.apk",
+    "sha256": "e3a665c0f698f6f983141a9a2437279e403f1efcf2271269a48907a4d1a0de11"
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/libxi-dev-1.8.2-r0.apk",
+    "sha256": "d3fee9e64d2928ac35698d0ee0c4d5a335e6a046f0c00a85eaeb66540d47b533"
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/libxcursor-dev-1.2.3-r0.apk",
+    "sha256": "90e917d8813296d819f06d01463dd0614805fa75f099515fe9334b6e3eca6c2d"
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/libxfixes-dev-6.0.1-r4.apk",
+    "sha256": "628964f399fe79096970042892c3deddccd4f41ed1b49e47048cd33c64cf29c7"
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/libxext-dev-1.3.6-r2.apk",
+    "sha256": "f39638847b34fbe78d2bb016f6d73d123837a1a50f521d0f9ba570b2452dead8"
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/libxrender-dev-0.9.12-r0.apk",
+    "sha256": "a7362ca20b2b0b2e516d56f88546ae8bbfb3bc3ddeec5342ce254512a0f3a5f1"
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/xorgproto-2024.1-r0.apk",
+    "sha256": "a2867ed1f059055ca06e97a3254a38658624137469d87cbbca8b591502f14655"
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.22/main/x86_64/mesa-dev-25.1.9-r0.apk",
+    "sha256": "f8fd6dd4c0d014dccd13c7a80a6746bd009162724d7626751f78c9f069258e81"
+  },
+  {
+    "url": "https://dl-cdn.alpinelinux.org/alpine/v3.22/community/x86_64/pulseaudio-dev-17.0-r5.apk",
+    "sha256": "820868509897a3d336e07446c7d48cc020ed9485caad83cfbc8a4a7086f89c15"
+  }
+]

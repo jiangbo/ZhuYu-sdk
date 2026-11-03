@@ -1,0 +1,43 @@
+name: Release SDK
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pack SDK files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          # 每个平台独立打包，只保留材料、来源和许可说明。
+          for platform in linux android macos ios apk; do
+            tar -czf "release/${platform}.tar.gz" \
+              --exclude='*.py' \
+              --exclude='*.pyc' \
+              --exclude='__pycache__' \
+              --exclude='.cache' \
+              --exclude='headers.json' \
+              --exclude='packages.json' \
+              "$platform"
+          done
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # 使用本次推送的标签创建 Release，只上传五个压缩包。
+          gh release create "$GITHUB_REF_NAME" release/*.tar.gz \
+            --verify-tag \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes

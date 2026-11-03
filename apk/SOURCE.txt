@@ -1,0 +1,14 @@
+APK 打包工具材料
+
+ARSCLib 1.4.0：
+https://github.com/REAndroid/ARSCLib/releases/tag/V1.4.0
+https://github.com/REAndroid/ARSCLib/releases/download/V1.4.0/ARSCLib-1.4.0.jar
+ARSCLib-LICENSE.txt 保留上游 Apache-2.0 许可文本。
+JAR 内含 Android API 23–36 的 framework 资源。
+
+apksigner.jar：Android SDK Build Tools 36.0.0 的 lib/apksigner.jar。
+https://developer.android.com/tools/releases/build-tools
+Android-NOTICE.txt 保留该版本 Build Tools 的第三方许可说明。
+
+两个 JAR 均为 Java 文件，不包含宿主平台的可执行程序。
+打包工具使用 JDK 11 及以上的 Java 源文件运行模式。

@@ -1,0 +1,28 @@
+Linux 构建材料
+
+gnu/ 保存 GNU ABI 的材料，来源为 Debian 11。
+musl/ 保存 musl ABI 的材料，来源为 Alpine Linux 3.22。
+各目录保留原始包版本、下载地址、许可证和头文件来源。
+只分发头文件和来源材料，不分发 Linux 系统库实现。
+链接符号清单位于 ZhuYu 仓库的 sdk/defs/linux/，与构建代码一起维护。
+
+头文件提取只需 Python 3.10 或以上，支持 Windows 和 Linux，不依赖 Zig 或 Sokol。
+在 SDK 仓库根目录执行：
+python linux/extract.py all
+python linux/extract.py gnu
+python linux/extract.py musl --output /path/to/linux-sdk
+
+--output 指定 Linux 材料根目录，脚本会在其中创建 gnu/ 或 musl/。
+默认更新本目录；--cache 指定下载缓存，默认为 linux/.cache/，不提交 Git。
+每个 ABI 的 packages.json 固定上游开发包地址和 SHA256。
+headers.json 独立记录需要保留的头文件及原始内容 SHA256，不依赖引擎调用列表。
+增加头文件时更新此清单；更新包版本时同时核对包和头文件的哈希。
+下载和所有头文件校验成功后写入 include/，FILES.txt 记录每个文件的包和路径。
+已有来源说明和许可证随 --output 一起复制，不分发开发包中的系统库实现。
+
+.def 生成工具位于 ZhuYu 仓库的 sdk/defs/linux/generate.py。
+提取头文件与生成链接符号独立执行，本脚本不读取或修改 ZhuYu。
+
+同时保留 ALSA 和 PulseAudio 的头文件、许可与链接符号，供使用方选择。
+GNU 使用 Debian 11 的 PulseAudio 14.2-2，musl 使用 Alpine 3.22 的 17.0-r5。
+两套清单均保留 PULSE_0 默认符号版本。

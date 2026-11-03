@@ -1,0 +1,36 @@
+macOS 构建材料
+
+基线 SDK：macOS 14.0，最低运行版本为 14.0。
+支持 x86_64 和 Apple Silicon。
+初始头文件清单参考 Zig 0.17.0 和 Sokol-zig：
+3990b6629704f988041ac7e76ed010348eabd098。
+
+usr/include/ 按 headers.json 收录两个架构的头文件。
+保留上游内容、版权声明及 API 可用性标记。
+Framework 头文件展开到 usr/include/框架名/，符号链接入口复制为普通文件。
+usr/lib/libSystem.tbd 保留基线 SDK 的完整内容。
+SDKSettings.json 保留原 SDK 元数据，FILES.txt 记录来源和输出位置。
+不包含系统动态库实现、Swift 模块和离线 Metal 编译器。
+
+精简 Framework TBD 和 libobjc.tbd 位于 sdk/defs/macos/，随代码维护。
+按原 SDK 的真实重导出关系展开所需符号，包括 AppKit 的 CoreGraphics 接口。
+
+普通提取只需 Python 3.10 或以上和原始 SDK，不需要 Zig、Sokol 或 ZhuYu。
+在 SDK 仓库根目录执行：
+python macos/extract.py /path/to/MacOSX14.0.sdk
+可通过 --output 指定材料输出目录，默认更新 macos/。
+headers.json 固定 SDK 名称、版本、头文件来源路径、输出路径和内容 SHA256。
+复制完整 libSystem.tbd 和 SDK 元数据，不生成或修改精简 TBD。
+FILES.txt 只记录本 SDK 的文件，不包含其他仓库的生成物。
+
+需要扩展头文件范围时，单独使用 Python 和 Zig 分析 Sokol：
+python macos/scan.py /path/to/MacOSX14.0.sdk /path/to/sokol/src/sokol/c
+可通过 --zig 指定 Zig，通过 --output 将候选 headers.json 写到其他目录。
+扫描两个架构的 Debug 和 ReleaseFast，只更新清单，不提取材料。
+
+精简 TBD 的生成工具位于 ZhuYu 仓库的 sdk/defs/apple.py。
+它根据引擎实际调用独立运行，不修改 SDK 材料。
+
+SDK 来源：
+https://github.com/joseluisq/macosx-sdks/releases/tag/14.0
+https://github.com/joseluisq/macosx-sdks/releases/download/14.0/MacOSX14.0.sdk.tar.xz

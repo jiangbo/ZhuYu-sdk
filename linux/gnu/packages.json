@@ -1,0 +1,62 @@
+[
+  {
+    "url": "https://deb.debian.org/debian/pool/main/libg/libglvnd/libegl-dev_1.3.2-1_arm64.deb",
+    "sha256": "e2ad8f861b423620dd202ee6dbd1f79ff09e427656d84b395cb19ff43cc77f2d"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/libg/libglvnd/libgles-dev_1.3.2-1_arm64.deb",
+    "sha256": "8fd9943bd37d02e0ef9e8983d880fe71aa171f2973c2c19d9fc5d9492bc13fe8"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/a/alsa-lib/libasound2-dev_1.2.4-1.1_arm64.deb",
+    "sha256": "5acd1f3cd1aa11aeeb9dcd2467e8142ced0bdf112b813d134e63baebf342ee29"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/libg/libglvnd/libgl-dev_1.3.2-1_arm64.deb",
+    "sha256": "cb40f975a9bf6916bb435378a1bdab4f2aec93ef4df91c7f2708900c84211e7d"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/libg/libglvnd/libglvnd-dev_1.3.2-1_arm64.deb",
+    "sha256": "6e1550b9d1aa413bdc9b3c6ff969af967094e1278bfc612b86b56fd09b106ae1"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/libg/libglvnd/libglx-dev_1.3.2-1_arm64.deb",
+    "sha256": "0a69e1f459f8bc3e190162e78f8f6aa749dfcc0ad6c77f7ec27c9b55aef8e75c"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/libx/libx11/libx11-dev_1.7.2-1+deb11u2_arm64.deb",
+    "sha256": "daab6b6a6de5aa8aea8ec61ac89a25b86812e20292aa891bb0d9481c5d3ae310"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/libx/libxcursor/libxcursor-dev_1.2.0-2_arm64.deb",
+    "sha256": "c035b06e2295ff189c4b8c39c8cd3e5c36d040602320a621257bd0ffa78d5678"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/libx/libxext/libxext-dev_1.3.3-1.1_arm64.deb",
+    "sha256": "121790750c8e167fe0ef18e46b9450ca6c8414cd9e92666c0ee8f974e47402f2"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/libx/libxfixes/libxfixes-dev_5.0.3-2_arm64.deb",
+    "sha256": "666d887e81f2f446177e9c99fb3dcfc12c51c47d7722746530978fc7688cbe41"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/libx/libxi/libxi-dev_1.7.10-1_arm64.deb",
+    "sha256": "801088725612512a6afc2c1e9282f488144d8318270298d82a0821c58b59a343"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/libx/libxrender/libxrender-dev_0.9.10-1_arm64.deb",
+    "sha256": "a4eef4ec6f55bb78ea37a692112ddfa8a963d522c5f639cabd2bc5d728ce3a54"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/x/xorgproto/x11proto-dev_2020.1-1_all.deb",
+    "sha256": "d5568d587d9ad2664c34c14b0ac538ccb3c567e126ee5291085a8de704a565f5"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/x/xtrans/xtrans-dev_1.4.0-1_all.deb",
+    "sha256": "9ce1af9464faee0c679348dd11cdf63934c12e734a64e0903692b0cb5af38e06"
+  },
+  {
+    "url": "https://deb.debian.org/debian/pool/main/p/pulseaudio/libpulse-dev_14.2-2_arm64.deb",
+    "sha256": "a83746a514f457d515fec31e34fcd985728eaeae77560bbd5e11496fef3f6058"
+  }
+]
