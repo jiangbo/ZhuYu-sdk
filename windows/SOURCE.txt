@@ -1,0 +1,69 @@
+Windows x86、x64 MSVC 构建材料
+
+来源：Microsoft Windows SDK 10.0.26100，MSVC CRT 14.44.35220.0。
+原始材料由 xwin 0.10.0 从 Microsoft 下载并通过 splat 整理。
+当前范围为 x86-windows.win8-msvc、x86_64-windows.win8-msvc，
+使用 Sokol D3D11 和系统字体。不包含 ARM64、完整 Windows SDK、
+C++ 标准库或编译器。
+
+原始 SDK 使用 xwin 的 crt/、sdk/ 布局，架构目录名称为 x86、x86_64。
+crt/include、sdk/include/{ucrt,um,shared} 按 headers.json 选择原始头文件。
+扫描参考 Zig 0.17.0 和 Sokol-zig：
+cc3473c17bed471d608e221adf0fdcb5a61163e0。
+扫描两个架构的 Debug、Safe、Fast，合并直接和间接引用的微软头文件。
+两个架构共用同一组 182 个头文件，各自保存 17 个库。
+复制时保留编译器看到的路径大小写，软链接转换为普通文件。
+
+libraries.json 固定所选库的原始 SHA256、处理方式和输出 SHA256。
+保留 libcmt、libvcruntime、libucrt、legacy_stdio_definitions、oldnames，
+以及引擎、Sokol、Zig 所需的系统导入库和 uuid 静态数据。
+每个架构处理六个普通 COFF 静态库：
+x64 使用 llvm-objcopy --strip-debug 删除调试节。
+x86 保留节表和符号索引，清空 .debug$S、.debug$T 的内容与重定位，
+再由 llvm-objcopy 重新布局、llvm-ar --format=coff 重建静态库。
+这样避免 LLVM 19 直接删节后破坏 .sxdata 内的 SafeSEH 符号索引。
+所有对象保留原始顺序，新库使用固定的数字对象名称，处理结果可重复。
+相关 LLVM 问题：https://github.com/llvm/llvm-project/pull/222929
+当前工具为 LLVM 19.0.1，来自 Android NDK r28c 的主机工具目录。
+仅删除调试信息；保留链接符号、重定位、代码和数据。
+系统导入库含 short import 对象，本次 LLVM 不支持对此格式执行 objcopy，
+因此按原始字节保留，避免破坏导入信息。
+不收录运行库的 PDB；应用仍可以生成并使用自己的 Debug EXE 和 PDB。
+FILES.txt 记录各文件的原始路径及 copy、strip-debug、clear-debug 处理方式。
+
+普通提取需 Python 3.10 或以上、原始双架构 xwin SDK，
+以及同目录的 LLVM objcopy、ar 工具，
+不需要 Zig、Sokol 或 ZhuYu 源码。在 SDK 仓库根目录执行：
+python windows/extract.py /path/to/xwin-sdk --objcopy /path/to/llvm-objcopy
+可加 --output /path/to/windows-sdk 写入空目录后核对。
+所有原始文件校验成功、处理后库的哈希匹配后才更新输出。
+目标存在清单之外的旧文件时停止，避免混入旧版本材料。
+
+需要更新头文件范围时，单独执行扫描：
+python windows/scan.py /path/to/xwin-sdk /path/to/sokol/src/sokol/c
+可通过 --zig 指定 Zig，通过 --output 输出候选 headers.json。
+scan.py 只更新头文件清单，不提取材料，也不修改库清单。
+SDK 或库升级时，人工核对 libraries.json 的原始及剥离后 SHA256，
+同步更新本说明中的版本，随后重新运行 extract.py 并验证构建。
+库清单不应从已剥离库反向生成，原始输入须保留用于校验和追溯。
+
+获取原始材料可使用 xwin splat；必须保留下载时使用的版本和缓存。
+通过 --arch x86,x86_64 同时下载两个架构，共用头文件。
+工具及参数说明：https://github.com/Jake-Shadle/xwin
+本次下载缓存记录 Visual Studio 通道 17.14.42，CRT 头文件自报上述版本。
+清单中的内容哈希用于识别本次确切的原始文件，避免仅靠版本号判断。
+
+验证记录：
+ZhuYu 76532c8、demo b676d43，加本地 MSVC 接入修改，通过 --fork 使用引擎。
+精简及剥离后的 SDK 均通过 Safe 和 Debug 交叉构建。
+合并 x86 材料后分别验证两个架构，Windows 实机运行记录仍只覆盖 x64。
+x64 剥离后 Safe EXE 的 SHA256 与使用原始 SDK 构建的文件完全相同：
+96852e813a756e7590aa7e8a960255d20d6fe8b5f89eddc30d9a78b12d5fc269
+原始 SDK 构建的 Safe、Debug 两版已由用户在 Windows 上运行验证。
+剥离后的 Debug 版仅完成构建验证，尚未另行验证 Windows 运行。
+x86 已通过 Safe、Debug 构建，并检查最终程序的 SafeSEH 表。
+逐一核对六个 x86 库的 2474 个对象，确认非调试节内容、重定位、
+符号名称及其原始索引保持一致。
+
+仓库发布流程打包 windows/，包含本说明、NOTICE 和 FILES。
+维护脚本及 JSON 清单不进入 Release 压缩包。

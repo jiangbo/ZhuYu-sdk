@@ -1,0 +1,172 @@
+{
+  "crt/lib/x86/legacy_stdio_definitions.lib": {
+    "source_sha256": "3e240836c53a478ceea66c292739e814870d5f274626e4bf7952435badd99bae",
+    "sha256": "ec69e040711fe5814ba911c8402eec5770c8becdb8ba521bcf29d7bfc0bcb069",
+    "action": "clear"
+  },
+  "crt/lib/x86/libcmt.lib": {
+    "source_sha256": "77a18147a9cf6475995bbfd4d8eb46109912884ec03aaa2ee4f2e4d71ba97660",
+    "sha256": "5fbed3fbe998f76c7d48ec00edc37cd04eed9b71f3f8202a082addb0e40fafbc",
+    "action": "clear"
+  },
+  "crt/lib/x86/libvcruntime.lib": {
+    "source_sha256": "f94b4942804e5893ae2a255fa3845b35d2eaac9f5d427c89e84a7f84f7face64",
+    "sha256": "896057af56ab10611b5e6e9f96f66357f14d191854aebb4c9c20f63c9481999f",
+    "action": "clear"
+  },
+  "crt/lib/x86/oldnames.lib": {
+    "source_sha256": "5d0995750177e324494a496e450e94edd028cedae041e4fbba530d8afaaf26a7",
+    "sha256": "826e1bad68234550888fffb027f1e4ee6b518837693b1aeca04ef1aa2e136ffa",
+    "action": "clear"
+  },
+  "crt/lib/x86_64/legacy_stdio_definitions.lib": {
+    "source_sha256": "5390d47e5e29379382a25f31c8f63ef4a5cdc0d6d283b3363c19456f3f434641",
+    "sha256": "9098ef9baadd43d611ca2726a0be6d0179e63bd1d9894e9974804516e93cf3a6",
+    "action": "strip"
+  },
+  "crt/lib/x86_64/libcmt.lib": {
+    "source_sha256": "8fe40dd342b90b35d62b8f5d55b4e92df7785c122976618365cfe3b014cc857a",
+    "sha256": "c8b6b09e9d7d5604fb194a01e7fe85e56fdbf2a1aba10e1066f7ab8d50e73680",
+    "action": "strip"
+  },
+  "crt/lib/x86_64/libvcruntime.lib": {
+    "source_sha256": "e4f8daf356d63592ff6d6f7ad90c8c9da4c1230273ad113a9a2b56afd6bfcb04",
+    "sha256": "7696df4a0497ab3a81a88d87b831c2b12d6281ba7a8338b5d360448a08a426fb",
+    "action": "strip"
+  },
+  "crt/lib/x86_64/oldnames.lib": {
+    "source_sha256": "35bd82cfb02a0146ff9c0ca6bf7dbde61d49c6d4f3493befe584218c370ff41d",
+    "sha256": "14449d7a7834bedae4eb1538530582b46a850a28e690b0bbbda756f9ae9b18fb",
+    "action": "strip"
+  },
+  "sdk/lib/ucrt/x86/libucrt.lib": {
+    "source_sha256": "20b6a9d5e1e2198c8a7868045fae496c6a1b6743f22d1486920335f7c90bc860",
+    "sha256": "54838fc2a894cc362dd75f35cfbc3fe010cfa6f3285ed69f3860882685ad2a0e",
+    "action": "clear"
+  },
+  "sdk/lib/ucrt/x86_64/libucrt.lib": {
+    "source_sha256": "1911eb278d4f18f92e5c2350206ee51bf0bfc056ac7f575a7d1e7bfa86023fb6",
+    "sha256": "24eb5c45a05c0b4c4f8d5d5bc04f51a2c1d7c0abca1201307cbf927c61faec46",
+    "action": "strip"
+  },
+  "sdk/lib/um/x86/advapi32.lib": {
+    "source_sha256": "aae02682b7fb18b66b4bb9f7f44e94ba1c05280d9ccff0aefafa9a6a7b52eac2",
+    "sha256": "aae02682b7fb18b66b4bb9f7f44e94ba1c05280d9ccff0aefafa9a6a7b52eac2",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86/d3d11.lib": {
+    "source_sha256": "c5f7145d2c5b819e08365e9f93e97c13dc970eec0ad9271933f79b4d4c7f1629",
+    "sha256": "c5f7145d2c5b819e08365e9f93e97c13dc970eec0ad9271933f79b4d4c7f1629",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86/dwrite.lib": {
+    "source_sha256": "a5c07cf0f6449594a5d572c1a978dbf52b1b0f001a0640edad54ffd2053145ba",
+    "sha256": "a5c07cf0f6449594a5d572c1a978dbf52b1b0f001a0640edad54ffd2053145ba",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86/dxgi.lib": {
+    "source_sha256": "11bb76aae58892c7c583bba71a62db2e7d4b1ffe74309d14dfec9fe9075b158c",
+    "sha256": "11bb76aae58892c7c583bba71a62db2e7d4b1ffe74309d14dfec9fe9075b158c",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86/gdi32.lib": {
+    "source_sha256": "9455e9bd270bdfe2d159ae0750241c20c07e94b8962db91f18e24af0cf3ac30d",
+    "sha256": "9455e9bd270bdfe2d159ae0750241c20c07e94b8962db91f18e24af0cf3ac30d",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86/imm32.lib": {
+    "source_sha256": "a6329c5284a791a63e53636f24d417ab6040847ae7df99e1c6fd455a9f53f418",
+    "sha256": "a6329c5284a791a63e53636f24d417ab6040847ae7df99e1c6fd455a9f53f418",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86/kernel32.lib": {
+    "source_sha256": "0916cf9c90410acf8fe000b23443f54c467bdecb14078034f3c9ec086200afc7",
+    "sha256": "0916cf9c90410acf8fe000b23443f54c467bdecb14078034f3c9ec086200afc7",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86/ntdll.lib": {
+    "source_sha256": "167fdee306171ad6bcaadb9471c6dcbf3159dab9e36ff7cab40c44e1ed8cbed2",
+    "sha256": "167fdee306171ad6bcaadb9471c6dcbf3159dab9e36ff7cab40c44e1ed8cbed2",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86/ole32.lib": {
+    "source_sha256": "037effd2a291e69b7a6b310ca52c95dd7baed17b9bcd718967324e89730dfcc8",
+    "sha256": "037effd2a291e69b7a6b310ca52c95dd7baed17b9bcd718967324e89730dfcc8",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86/shell32.lib": {
+    "source_sha256": "21524f52fb063634f2b4d2531d37796f82a307982dc81b235c2d2142ea278730",
+    "sha256": "21524f52fb063634f2b4d2531d37796f82a307982dc81b235c2d2142ea278730",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86/user32.lib": {
+    "source_sha256": "ab26e29a6f06b0eba87861aebb9e61874a22f297d03d66e08296066ce0dbdbeb",
+    "sha256": "ab26e29a6f06b0eba87861aebb9e61874a22f297d03d66e08296066ce0dbdbeb",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86/uuid.lib": {
+    "source_sha256": "5cc0dcf440cc7a10000cc0c4a8d6a9cc157a7b463339ed0dbe709590598fd205",
+    "sha256": "aa2e9b35e543e1d8609299e6aae6cbcfb0a5c40226a31471cd0dcf9819a0dbfd",
+    "action": "clear"
+  },
+  "sdk/lib/um/x86_64/advapi32.lib": {
+    "source_sha256": "a0ea53377e6de11c5fdc07e72af11d22d8fa613cecc6ccb1b6de43490392eadc",
+    "sha256": "a0ea53377e6de11c5fdc07e72af11d22d8fa613cecc6ccb1b6de43490392eadc",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86_64/d3d11.lib": {
+    "source_sha256": "043f509f20d5dc6269ddd81e8741b4ff075e2fc7983f5477b6cc618577b1cd8d",
+    "sha256": "043f509f20d5dc6269ddd81e8741b4ff075e2fc7983f5477b6cc618577b1cd8d",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86_64/dwrite.lib": {
+    "source_sha256": "168a644673176f873ff228e4050e48057838d685dd9a60ec24c7238b2be4161b",
+    "sha256": "168a644673176f873ff228e4050e48057838d685dd9a60ec24c7238b2be4161b",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86_64/dxgi.lib": {
+    "source_sha256": "181cf09753c8db1ec62aaacc91574f1c6b54ae13526d1e77e83fd051c756af7f",
+    "sha256": "181cf09753c8db1ec62aaacc91574f1c6b54ae13526d1e77e83fd051c756af7f",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86_64/gdi32.lib": {
+    "source_sha256": "f530829c5e91cacd906c9e7363ca873bb8eaeb50114cc6a74a8a04c49bb4ec40",
+    "sha256": "f530829c5e91cacd906c9e7363ca873bb8eaeb50114cc6a74a8a04c49bb4ec40",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86_64/imm32.lib": {
+    "source_sha256": "10bd87c59fe883021907eeabb151082377eeecea2b069546036307a5ea863214",
+    "sha256": "10bd87c59fe883021907eeabb151082377eeecea2b069546036307a5ea863214",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86_64/kernel32.lib": {
+    "source_sha256": "341c7d56125a03b458e4d5093e4c79b33123ccfdfd610fe236937b8e6f3134bb",
+    "sha256": "341c7d56125a03b458e4d5093e4c79b33123ccfdfd610fe236937b8e6f3134bb",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86_64/ntdll.lib": {
+    "source_sha256": "a373f724ef6d8ea11a8b03de653ac1b4f111522f59a1f4b787ec9d93f31fe7c1",
+    "sha256": "a373f724ef6d8ea11a8b03de653ac1b4f111522f59a1f4b787ec9d93f31fe7c1",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86_64/ole32.lib": {
+    "source_sha256": "f7b6d1e4a2f2a16c6a78ed821c8aa7f0b488112bb4da778285086e4588ca197a",
+    "sha256": "f7b6d1e4a2f2a16c6a78ed821c8aa7f0b488112bb4da778285086e4588ca197a",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86_64/shell32.lib": {
+    "source_sha256": "2a22142874964268432783a85cef5e3f5c18ed050ab77e637bb6bab30bb73ab6",
+    "sha256": "2a22142874964268432783a85cef5e3f5c18ed050ab77e637bb6bab30bb73ab6",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86_64/user32.lib": {
+    "source_sha256": "f45759349ad08b848bdd4eee39cd9b428b2a7ae63a09889c09a197fe7b01421d",
+    "sha256": "f45759349ad08b848bdd4eee39cd9b428b2a7ae63a09889c09a197fe7b01421d",
+    "action": "copy"
+  },
+  "sdk/lib/um/x86_64/uuid.lib": {
+    "source_sha256": "d077ffb106503e057428dc7bb4c5daac019c269ffc714edb18ca028723cc840a",
+    "sha256": "fa0d993545a5930a1ccae07aebea831255eb3aec48acae06e98c77fed9e9d8e0",
+    "action": "strip"
+  }
+}

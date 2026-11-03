@@ -15,6 +15,7 @@
 | `macos/` | 头文件、完整 libSystem 链接描述和 SDK 元数据 | macOS 14.0 SDK |
 | `ios/` | 真机、模拟器的头文件、完整 libSystem 链接描述和 SDK 元数据 | iOS 17.0 SDK |
 | `apk/` | ARSCLib、apksigner 及许可说明 | ARSCLib 1.4.0、Build Tools 36.0.0 |
+| `windows/` | x86、x64 头文件和链接库 | Windows SDK 10.0.26100、CRT 14.44.35220.0 |
 
 这些材料用于编译和链接，不包含完整的开发环境。Apple 的 `.tbd` 和 Android
 的系统占位库描述目标系统提供的接口，应用运行时使用目标系统的真实系统库。
@@ -71,9 +72,22 @@ python ios/extract.py /path/to/iPhoneOS17.0.sdk /path/to/iPhoneSimulator17.0.sdk
 普通提取不需要 Zig、Sokol 或 ZhuYu 源码。Android 和 Apple 的提取脚本会检查
 原始 SDK 版本及头文件内容是否匹配清单。
 
+Windows 从本地双架构 xwin `splat` 目录提取，需要 LLVM objcopy 和 ar：
+
+```sh
+python windows/extract.py /path/to/xwin-sdk --objcopy /path/to/llvm-objcopy
+```
+
+当前支持 x86、x64 MSVC，共用头文件，各架构的库分别存放。脚本按清单
+校验原始文件，移除每个架构六个普通静态库的调试信息后再校验输出哈希。
+x64 删除调试节；x86 清空调试节内容，保留 SafeSEH 引用的符号索引。
+系统导入库保留原样。不收录 CRT 的 PDB，应用仍可
+生成自己的调试信息。使用 LLVM 19.0.1 验证，详细来源和步骤见
+[`windows/SOURCE.txt`](windows/SOURCE.txt)。
+
 ## 更新头文件清单
 
-Android、macOS 和 iOS 的 `scan.py` 用于分析 Sokol 源码的头文件依赖，
+Android、macOS、iOS 和 Windows 的 `scan.py` 用于分析 Sokol 源码的头文件依赖，
 需要原始 SDK、Sokol 的 `src/sokol/c` 目录以及 Zig。
 它们只更新头文件清单，不提取材料，也不生成引擎的链接定义。
 
@@ -106,13 +120,14 @@ git tag v0.1.0
 git push origin v0.1.0
 ```
 
-GitHub Actions 会打包标签对应的仓库内容，创建 Release 并上传五个附件：
+GitHub Actions 会打包标签对应的仓库内容，创建 Release 并上传六个附件：
 
 - `linux.tar.gz`
 - `android.tar.gz`
 - `macos.tar.gz`
 - `ios.tar.gz`
 - `apk.tar.gz`
+- `windows.tar.gz`
 
 每包保留对应平台的顶层目录，包含构建材料、来源和许可说明。
 维护脚本、提取清单和下载缓存不进入压缩包，也不生成额外的哈希文件。

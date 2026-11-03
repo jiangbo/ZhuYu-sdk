@@ -1,0 +1,13 @@
+本目录的 Microsoft 头文件和库归 Microsoft 及其相关权利人所有。
+原始头文件中的版权声明按原样保留。
+这些上游材料不适用本仓库自有脚本的 MIT 许可证。
+使用和分发须遵循所获取的 Windows SDK、Visual Studio / Build Tools
+及 MSVC CRT 的原始许可条款；本说明不授予额外许可。
+
+Microsoft 产品许可入口：
+https://visualstudio.microsoft.com/license-terms/
+Windows SDK 官方入口：
+https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
+
+xwin 仅用于获取并整理原始材料，不改变 Microsoft 材料的许可。
+llvm-objcopy 仅用于移除调试节，本目录不分发该工具本身。
